@@ -6,11 +6,14 @@ class IntButton {
   Function changeNumber;
   final int number;
 
-  StatelessWidget getButton() {
-    return FloatingActionButton(
+  TextButton getButton() {
+    return TextButton(
       onPressed: () => changeNumber(number),
-      tooltip: 'Change Number',
-      child: Text(number.toString()),
+      child: Text(
+        number.toString(),
+        style: const TextStyle(color: Colors.indigo),
+        textAlign: TextAlign.center,
+      ),
     );
   }
 }
