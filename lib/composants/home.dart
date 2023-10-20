@@ -1,5 +1,5 @@
-import 'package:test_1/composants/intbutton.dart';
 import 'package:flutter/material.dart';
+import 'package:test_1/composants/calc.dart';
 
 class HomeComponent extends StatefulWidget {
   const HomeComponent(
@@ -13,6 +13,7 @@ class HomeComponent extends StatefulWidget {
 }
 
 class _HomeComponentState extends State<HomeComponent> {
+  bool isCalc = true;
   String numi = "0";
 
   void changeNumber(int to) {
@@ -21,54 +22,31 @@ class _HomeComponentState extends State<HomeComponent> {
     });
   }
 
+  Widget getBody(bool calc) {
+    if (calc) {
+      return Calc(numi: numi, changeNumber: changeNumber).get();
+    } else {
+      return Image.network(
+          "https://media.tenor.com/JvArM7ZO5JIAAAAM/bavatogay-ricardo-milos.gif");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IntButton(number: 1, changeNumber: changeNumber).getButton(),
-                  IntButton(number: 2, changeNumber: changeNumber).getButton(),
-                  IntButton(number: 3, changeNumber: changeNumber).getButton(),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IntButton(number: 4, changeNumber: changeNumber).getButton(),
-                  IntButton(number: 5, changeNumber: changeNumber).getButton(),
-                  IntButton(number: 6, changeNumber: changeNumber).getButton(),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IntButton(number: 7, changeNumber: changeNumber).getButton(),
-                  IntButton(number: 8, changeNumber: changeNumber).getButton(),
-                  IntButton(number: 9, changeNumber: changeNumber).getButton(),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IntButton(number: 0, changeNumber: changeNumber).getButton(),
-                ],
-              )
-            ]),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: 'Increment',
-        child: Text(numi.toString()),
-      ),
-    );
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: Text(widget.title),
+        ),
+        body: getBody(isCalc),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => {
+            setState(() {
+              isCalc = !isCalc;
+            })
+          },
+          tooltip: 'Increment',
+          child: Text(numi.toString()),
+        ));
   }
 }
