@@ -26,8 +26,15 @@ class _HomeComponentState extends State<HomeComponent> {
     if (calc) {
       return Calc(numi: numi, changeNumber: changeNumber).get();
     } else {
-      return Image.network(
-          "https://media.tenor.com/JvArM7ZO5JIAAAAM/bavatogay-ricardo-milos.gif");
+      return const Scaffold(
+        body: Center(
+            child: Image(
+          image: NetworkImage(
+              "https://media.tenor.com/JvArM7ZO5JIAAAAM/bavatogay-ricardo-milos.gif"),
+          alignment: Alignment.center,
+          isAntiAlias: true,
+        )),
+      );
     }
   }
 
@@ -45,8 +52,8 @@ class _HomeComponentState extends State<HomeComponent> {
               isCalc = !isCalc;
             })
           },
-          tooltip: 'Increment',
-          child: Text(numi.toString()),
+          tooltip: 'Toggle',
+          child: !isCalc ? const Text("Calc") : const Text("Ricardo"),
         ));
   }
 }
